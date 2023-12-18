@@ -22,9 +22,7 @@ module.exports = defineConfig({
       return config
     },
     specPattern: [
-      // E2E-filer Cypress letar efter som standard
       'cypress/e2e/**/*.cy.{js,jsx,ts,tsx}',
-      // Tillägg för Cucumber
       'cypress/e2e/**/*.feature'
     ]
   }

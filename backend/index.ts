@@ -36,7 +36,7 @@ app.get(
     }
   }
 );
-
+/* 
 // Get product by id
 app.get(
   "/api/:id",
@@ -103,7 +103,7 @@ app.delete(
       response.status(500).json({ error: "Internal server error" });
     }
   }
-);
+); */
 
 app.use(express.static(path.join(path.resolve(), "public")));
 
