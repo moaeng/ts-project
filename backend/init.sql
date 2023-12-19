@@ -1,9 +1,4 @@
-CREATE TABLE users (
-  user_id SERIAL PRIMARY KEY,
-  username VARCHAR(50) UNIQUE NOT NULL,
-  email VARCHAR(100) UNIQUE NOT NULL,
-  password_hash VARCHAR(60) NOT NULL
-);
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE products (
   product_id SERIAL PRIMARY KEY,
@@ -15,8 +10,6 @@ CREATE TABLE products (
 
 CREATE TABLE carts (
   cart_id SERIAL PRIMARY KEY,
-  user_id INT UNIQUE,
-  FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE cart_items (
@@ -27,21 +20,9 @@ CREATE TABLE cart_items (
   subtotal DECIMAL(10, 2) NOT NULL
 );
 
-CREATE TABLE orders (
-  order_id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(user_id),
-  order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  total_amount DECIMAL(10, 2) NOT NULL
-);
-
-INSERT INTO users (username, email, password_hash)
-VALUES ('john_doe', 'john@example.com', 'hashed_password');
-
-INSERT INTO products (name, description, price)
-VALUES ('Product 1', 'Description of Product 1', 19.99);
-
-INSERT INTO cart_items (cart_id, product_id, quantity, subtotal)
-VALUES (1, 1, 2, (SELECT price FROM products WHERE product_id = 1) * 2);
-
-INSERT INTO cart_items (cart_id, product_id, quantity, subtotal)
-VALUES (2, 2, 3, (SELECT price FROM products WHERE product_id = 2) * 3);
+-- Inserting data into the 'products' table
+INSERT INTO products (name, description, price, quantity)
+VALUES
+  ('Product A', 'Description for Product A', 19.99, 50),
+  ('Product B', 'Description for Product B', 29.99, 30),
+  ('Product C', 'Description for Product C', 14.99, 100);

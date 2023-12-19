@@ -1,0 +1,21 @@
+.Navbar {
+  background-color: black;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .Logo {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .List {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    .ListItem {
+      font-weight: 300;
+      font-size: 13px;
+    }
+  }
+}
