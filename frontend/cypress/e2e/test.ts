@@ -15,7 +15,7 @@ Then("the cart should display the updated item count", () => {
 Given("the user has items in the cart", () => {
   cy.request({
     method: "POST",
-    url: "http://localhost/api/cart/add",
+    url: "http://localhost/api/add",
     body: {
       cart_id: 1,
       product_id: 2,

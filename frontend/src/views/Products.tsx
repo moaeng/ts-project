@@ -49,9 +49,12 @@ const Products: React.FC = () => {
   return (
     <div className="Products">
       {products.map((product) => (
-        <div key={product.product_id}>
+        <div className="Product" key={product.product_id}>
           <p>{product.name}</p>
-          <button onClick={() => addToCart(product.product_id)}>
+          <button
+            className="CartBtn"
+            onClick={() => addToCart(product.product_id)}
+          >
             Add to Cart
           </button>
         </div>
