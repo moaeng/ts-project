@@ -37,23 +37,49 @@ app.get(
   }
 );
 
+// Add to cart
 app.post(
   "/api/add",
   async (request: express.Request, response: express.Response) => {
     const { user_id, product_id, quantity } = request.body;
     try {
-      const result = await client.query(
-        "INSERT INTO cart_items (cart_id, product_id, quantity, subtotal) VALUES ((SELECT cart_id FROM carts WHERE user_id = $1), $2, $3, (SELECT price FROM products WHERE product_id = $2) * $3) RETURNING *",
-        [user_id, product_id, quantity]
+      const product = await client.query<Product>(
+        "SELECT * FROM products WHERE product_id = $1",
+        [product_id]
       );
 
-      // Extract the inserted row from the result.rows array
+      if (product.rows.length === 0) {
+        return response.status(404).json({ error: "Product not found" });
+      }
+      const price = product.rows[0].price;
+      const subtotal = price * quantity;
+
+      const result = await client.query<CartItem>(
+        "INSERT INTO cart_items (user_id, product_id, quantity, subtotal) VALUES ($1, $2, $3, $4) RETURNING *",
+        [user_id, product_id, quantity, subtotal]
+      );
+
       const newCartItem = result.rows[0];
 
-      // Send success response with inserted data
       response.status(201).json(newCartItem);
     } catch (error) {
       console.error("Error adding item to cart:", error);
+      response.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+// Get all cart items
+
+app.get(
+  "/api/cart",
+  async (_request: express.Request, response: express.Response) => {
+    try {
+      const result = await client.query("SELECT * FROM cart_items");
+      const cartItems = result.rows;
+      response.json({ cartItems });
+    } catch (error) {
+      console.error("Error getting cart items: ", error);
       response.status(500).json({ error: "Internal server error" });
     }
   }

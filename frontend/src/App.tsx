@@ -5,6 +5,7 @@ import Products from "./views/Products";
 import ProductDetails from "./views/ProductDetails";
 import Cart from "./views/Cart";
 import { AppProvider } from "../AppContext";
+
 function App() {
   return (
     <AppProvider>

@@ -26,7 +26,6 @@ const Products: React.FC = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: 5,
           product_id: productId,
           quantity: 1,
         }),
@@ -36,7 +35,7 @@ const Products: React.FC = () => {
         const newCartItem = await response.json();
         const updatedCartItems = [...cartItems, newCartItem];
         updateCartItems(updatedCartItems);
-        console.log(updatedCartItems);
+        console.log("cartItems", updatedCartItems);
       } else {
         const errorData = await response.json();
         console.error(

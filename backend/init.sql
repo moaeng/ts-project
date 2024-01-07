@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS users;
 
 CREATE TABLE products (
   product_id SERIAL PRIMARY KEY,
@@ -9,18 +8,18 @@ CREATE TABLE products (
 );
 
 CREATE TABLE carts (
-  cart_id SERIAL PRIMARY KEY,
+  cart_id SERIAL PRIMARY KEY
 );
 
 CREATE TABLE cart_items (
   cart_item_id SERIAL PRIMARY KEY,
+  user_id INT,
   cart_id INT REFERENCES carts(cart_id),
   product_id INT REFERENCES products(product_id),
   quantity INT NOT NULL,
   subtotal DECIMAL(10, 2) NOT NULL
 );
 
--- Inserting data into the 'products' table
 INSERT INTO products (name, description, price, quantity)
 VALUES
   ('Product A', 'Description for Product A', 19.99, 50),
