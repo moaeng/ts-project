@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import { useAppContext } from "../../AppContext";
+import { useEffect, useState } from "react";
+import { useCart } from "../../CartContext";
+import { Product } from "../../types";
 
 const Products: React.FC = () => {
-  const { cartItems, updateCartItems, products, updateProducts } =
-    useAppContext();
-
+  const { cart, updateCart } = useCart();
+  const [products, setProducts] = useState<Product[]>([]);
   useEffect(() => {
     const getProducts = async () => {
       try {
         const response = await fetch("/api");
         const data = await response.json();
-        updateProducts(data);
+        setProducts(data);
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -33,9 +33,8 @@ const Products: React.FC = () => {
 
       if (response.ok) {
         const newCartItem = await response.json();
-        const updatedCartItems = [...cartItems, newCartItem];
-        updateCartItems(updatedCartItems);
-        console.log("cartItems", updatedCartItems);
+        updateCart([...cart, newCartItem]);
+        console.log("cartItems", newCartItem);
       } else {
         const errorData = await response.json();
         console.error(
@@ -47,7 +46,6 @@ const Products: React.FC = () => {
       console.error("Error adding product to cart", error);
     }
   };
-
   return (
     <div className="Products">
       {products.map((product) => (

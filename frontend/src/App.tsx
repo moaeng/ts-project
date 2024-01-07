@@ -4,11 +4,11 @@ import Home from "./views/Home";
 import Products from "./views/Products";
 import ProductDetails from "./views/ProductDetails";
 import Cart from "./views/Cart";
-import { AppProvider } from "../AppContext";
+import { CartProvider } from "../CartContext";
 
 function App() {
   return (
-    <AppProvider>
+    <CartProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -17,7 +17,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </Router>
-    </AppProvider>
+    </CartProvider>
   );
 }
 

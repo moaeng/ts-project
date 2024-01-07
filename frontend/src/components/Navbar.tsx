@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import "./Navbar.scss";
 import { useEffect, useState } from "react";
+import { useCart } from "../../CartContext";
+import { CartItem } from "../../types";
 
 function Navbar() {
+  const { cart } = useCart();
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
@@ -11,7 +14,10 @@ function Navbar() {
         const response = await fetch("/api/cart");
         if (response.ok) {
           const data = await response.json();
-          const itemCount = data.cartItems.length;
+          const itemCount = data.cartItems.reduce(
+            (acc: number, item: CartItem) => acc + item.quantity,
+            0
+          );
           setCartCount(itemCount);
         } else {
           console.error("Failed to fetch cart items");
@@ -21,7 +27,7 @@ function Navbar() {
       }
     };
     fetchCartItems();
-  });
+  }, [cart]);
 
   return (
     <div className="Navbar">

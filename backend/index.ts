@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import pg from "pg";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { Product, CartItem } from "../types";
+import { Product, CartItem } from "../frontend/types";
 
 dotenv.config();
 
