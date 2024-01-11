@@ -68,18 +68,65 @@ app.post(
     }
   }
 );
-
 // Get all cart items
 
 app.get(
   "/api/cart",
   async (_request: express.Request, response: express.Response) => {
     try {
-      const result = await client.query("SELECT * FROM cart_items");
-      const cartItems = result.rows;
+      const result = await client.query(`
+      SELECT cart_items.*, products.name, products.description, products.price, products.image_url
+      FROM cart_items
+      JOIN products ON cart_items.product_id = products.product_id
+    `);
+      const cartItems = result.rows.map((item) => ({
+        cart_item_id: item.cart_item_id,
+        user_id: item.user_id,
+        cart_id: item.cart_id,
+        quantity: item.quantity,
+        subtotal: item.subtotal,
+        product: {
+          product_id: item.product_id,
+          name: item.name,
+          description: item.description,
+          price: item.price,
+          image_url: item.image_url,
+        },
+      }));
       response.json({ cartItems });
     } catch (error) {
       console.error("Error getting cart items: ", error);
+      response.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+// Remove from cart
+
+app.delete(
+  "/api/remove",
+  async (request: express.Request, response: express.Response) => {
+    const { cart_item_id } = request.body;
+    try {
+      const cartItem = await client.query<CartItem>(
+        "SELECT * FROM cart_items WHERE cart_item_id = $1",
+        [cart_item_id]
+      );
+
+      if (cartItem.rows.length === 0) {
+        return response.status(404).json({ error: "Cart item not found" });
+      }
+
+      const result = await client.query<CartItem>(
+        "DELETE FROM cart_items WHERE cart_item_id = $1 RETURNING *",
+        [cart_item_id]
+      );
+
+      const removedCartItem = result.rows[0];
+
+      response.status(200).json({ removedCartItem });
+    } catch (error) {
+      console.error("Error removing item from cart:", error);
       response.status(500).json({ error: "Internal server error" });
     }
   }

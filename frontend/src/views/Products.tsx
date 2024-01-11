@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../../CartContext";
 import { Product } from "../../types";
+import { ShoppingCart } from "lucide-react";
+import "./Products.scss";
 
 const Products: React.FC = () => {
   const { cart, updateCart } = useCart();
@@ -46,17 +48,24 @@ const Products: React.FC = () => {
       console.error("Error adding product to cart", error);
     }
   };
+
   return (
     <div className="Products">
       {products.map((product) => (
         <div className="Product" key={product.product_id}>
-          <p>{product.name}</p>
-          <button
-            className="CartBtn"
-            onClick={() => addToCart(product.product_id)}
-          >
-            Add to Cart
-          </button>
+          <div className="ProductHeader">
+            <h2 className="ProductName">{product.name}</h2>
+            <span>{product.price}</span>
+          </div>
+          <div className="ImageContainer">
+            <img src={product.image_url} className="ProductImage"></img>
+            <button
+              className="CartBtn"
+              onClick={() => addToCart(product.product_id)}
+            >
+              <ShoppingCart />
+            </button>
+          </div>
         </div>
       ))}
     </div>

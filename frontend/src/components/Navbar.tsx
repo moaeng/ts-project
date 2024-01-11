@@ -37,7 +37,7 @@ function Navbar() {
           <Link to="/">Account</Link>
         </li>
         <li className="ListItem">
-          <Link to="/">{cartCount}</Link>
+          <Link to="/cart">{cartCount}</Link>
         </li>
       </ul>
     </div>

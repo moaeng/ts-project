@@ -3,6 +3,7 @@ export interface Product {
   name: string;
   description: string | null;
   price: number;
+  image_url: string;
 }
 
 export interface CartItem {
@@ -11,4 +12,5 @@ export interface CartItem {
   product_id: number;
   quantity: number;
   subtotal: number;
+  product: Product; // Add a nested product field
 }
