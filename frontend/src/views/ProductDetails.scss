@@ -1,0 +1,32 @@
+.ProductDetails {
+  display: flex;
+  flex-direction: column;
+  .ProductInfo {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    padding: 15px;
+    .ProductName {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+
+  .ProductImage {
+    width: 100%;
+  }
+
+  .ProductDesc {
+    font-size: 12px;
+    padding: 14px;
+  }
+
+  .CartButton {
+    background-color: black;
+    width: 100%;
+    margin: auto;
+    padding: 15px;
+    color: white;
+    text-align: center;
+  }
+}

@@ -37,6 +37,31 @@ app.get(
   }
 );
 
+// Get specific product
+app.get(
+  "/api/products/:id",
+  async (request: express.Request, response: express.Response) => {
+    try {
+      const productId = parseInt(request.params.id);
+      console.log("Received product ID", productId);
+      const { rows } = await client.query<Product>(
+        "SELECT * FROM products WHERE product_id = $1",
+        [productId]
+      );
+
+      if (rows.length === 0) {
+        response.status(404).json({ error: "Product not found" });
+      } else {
+        const product: Product = rows[0];
+        response.json(product);
+      }
+    } catch (error) {
+      console.error("Error getting specific product: ", error);
+      response.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
 // Add to cart
 app.post(
   "/api/add",

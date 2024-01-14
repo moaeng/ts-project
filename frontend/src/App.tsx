@@ -5,11 +5,13 @@ import Products from "./views/Products";
 import ProductDetails from "./views/ProductDetails";
 import Cart from "./views/Cart";
 import { CartProvider } from "../CartContext";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <CartProvider>
       <Router>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />

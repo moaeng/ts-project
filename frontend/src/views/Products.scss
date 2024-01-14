@@ -4,21 +4,11 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  gap: 2rem;
 
   .Product {
     display: flex;
     flex-direction: column;
 
-    .ProductHeader {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px 10px 5px;
-
-      .ProductName {
-        font-size: 16px;
-      }
-    }
     .ImageContainer {
       position: relative;
       display: inline-block;
@@ -30,6 +20,11 @@
         bottom: 10px;
         right: 10px;
         cursor: pointer;
+
+        .Icon {
+          width: 18px;
+          height: 18px;
+        }
       }
     }
   }

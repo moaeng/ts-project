@@ -30,17 +30,22 @@ function Navbar() {
   }, [cart]);
 
   return (
-    <div className="Navbar">
-      <h1 className="Logo">Shop</h1>
-      <ul className="List">
-        <li className="ListItem">
-          <Link to="/">Account</Link>
-        </li>
-        <li className="ListItem">
-          <Link to="/cart">{cartCount}</Link>
-        </li>
-      </ul>
-    </div>
+    <>
+      <div className="Navbar">
+        <Link to="/" className="Logo">
+          Naturally
+        </Link>
+        <div className="List">
+          <div className="ListItem">
+            <p>cart</p>
+            <button className="CartBtn">
+              <Link to="/cart"> {cartCount} </Link>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="Divider"></div>
+    </>
   );
 }
 export default Navbar;

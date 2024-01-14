@@ -1,9 +1,11 @@
-import Navbar from "../components/Navbar";
 import Products from "./Products";
+import "./Home.scss";
 function Home() {
   return (
     <>
-      <Navbar />
+      <div className="Naturally">
+        <h2>Where style meets sustainability</h2>
+      </div>
       <Products />
     </>
   );
