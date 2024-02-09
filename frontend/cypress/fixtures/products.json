@@ -1,0 +1,10 @@
+[
+  {
+    "product_id": 1,
+    "name": "Naturally Desk",
+    "description": "Enhance your workspace with the Naturally Desk, crafted from sustainable bamboo. This spacious desk promotes eco-conscious productivity, featuring a minimalist design and ample storage for a clutter-free environment.",
+    "price": 19.99,
+    "quantity": 50,
+    "image_url": "/images/NaturallyDesk.png"
+  }
+]

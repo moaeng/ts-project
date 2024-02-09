@@ -36,7 +36,7 @@ const Products: React.FC = () => {
               <img src={product.image_url} className="ProductImage"></img>
             </Link>
             <button
-              className="CartBtn"
+              className="AddToCartBtn"
               onClick={() => addToCart(product.product_id)}
             >
               <ShoppingCart className="Icon" />

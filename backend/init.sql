@@ -14,14 +14,13 @@ CREATE TABLE carts (
 
 CREATE TABLE cart_items (
   cart_item_id SERIAL PRIMARY KEY,
-  user_id INT,
   cart_id INT REFERENCES carts(cart_id),
   product_id INT REFERENCES products(product_id),
   quantity INT NOT NULL,
   subtotal DECIMAL(10, 2) NOT NULL,
-  CONSTRAINT unique_user_product UNIQUE (user_id, product_id)
+  CONSTRAINT unique_user_product UNIQUE (product_id)
 );
-
+  
 INSERT INTO products (name, description, price, quantity, image_url)
 VALUES
   ('Naturally Desk', 'Enhance your workspace with the Naturally Desk, crafted from sustainable bamboo. This spacious desk promotes eco-conscious productivity, featuring a minimalist design and ample storage for a clutter-free environment.', 19.99, 50, '/images/NaturallyDesk.png'),

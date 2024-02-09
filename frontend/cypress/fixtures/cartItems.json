@@ -1,0 +1,32 @@
+{
+  "cartItems": [
+    {
+      "cart_item_id": 1,
+      "cart_id": 1,
+      "product": {
+        "product_id": 1,
+        "name": "Naturally Desk",
+        "description": "Enhance your workspace...",
+        "price": 19.99,
+        "quantity": 1,
+        "image_url": "/images/NaturallyDesk.png"
+      },
+      "quantity": 1,
+      "subtotal": 19.99
+    },
+    {
+      "cart_item_id": 2,
+      "cart_id": 1,
+      "product": {
+        "product_id": 2,
+        "name": "Naturally Table Lamp",
+        "description": "Illuminate your space...",
+        "price": 29.99,
+        "quantity": 1,
+        "image_url": "/images/NaturallyLamp.png"
+      },
+      "quantity": 1,
+      "subtotal": 29.99
+    }
+  ]
+}

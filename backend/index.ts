@@ -66,7 +66,7 @@ app.get(
 app.post(
   "/api/add",
   async (request: express.Request, response: express.Response) => {
-    const { user_id, product_id, quantity } = request.body;
+    const { product_id, quantity } = request.body;
     try {
       const product = await client.query<Product>(
         "SELECT * FROM products WHERE product_id = $1",
@@ -80,8 +80,8 @@ app.post(
       const subtotal = price * quantity;
 
       const result = await client.query<CartItem>(
-        "INSERT INTO cart_items (user_id, product_id, quantity, subtotal) VALUES ($1, $2, $3, $4) RETURNING *",
-        [user_id, product_id, quantity, subtotal]
+        "INSERT INTO cart_items (product_id, quantity, subtotal) VALUES ($1, $2, $3) RETURNING *",
+        [product_id, quantity, subtotal]
       );
 
       const newCartItem = result.rows[0];
@@ -106,7 +106,6 @@ app.get(
     `);
       const cartItems = result.rows.map((item) => ({
         cart_item_id: item.cart_item_id,
-        user_id: item.user_id,
         cart_id: item.cart_id,
         quantity: item.quantity,
         subtotal: item.subtotal,

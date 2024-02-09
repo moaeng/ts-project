@@ -1,12 +1,13 @@
 import { CartProvider } from "../../CartContext";
 import App from "../../src/App";
 
-describe("Products component", () => {
+describe("Product details component", () => {
   beforeEach(() => {
     cy.intercept("GET", "/api", { fixture: "products.json" }).as("getProducts");
     cy.intercept("POST", "/api/add", { fixture: "cartItems.json" }).as(
       "addToCart"
     );
+
     cy.mount(
       <CartProvider>
         <App />
@@ -14,19 +15,18 @@ describe("Products component", () => {
     );
   });
 
-  it("renders all products with add to cart button", () => {
+  it("navigates to details about product when clicking on image", () => {
     cy.wait("@getProducts");
+    cy.get(".ProductImage").first().click();
+    cy.url().should("include", "/products/");
+    cy.get(".ProductDetails").should("exist");
 
-    cy.get(".Products").should("exist");
-
-    cy.get(".Product").should("have.length.gt", 0);
-
-    cy.get(".ProductImage").should("be.visible");
     cy.intercept("POST", "/api/cart/add", (req) => {
       req.reply({ status: 200, body: {} });
     }).as("addToCart");
-    cy.get(".AddToCartBtn").click();
 
+    cy.get(".Checkout").click();
+    cy.wait("@addToCart");
     cy.get(".Navbar .CartBtn").should("contain", "1");
   });
 });
