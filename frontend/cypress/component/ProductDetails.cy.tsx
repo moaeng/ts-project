@@ -21,7 +21,7 @@ describe("Product details component", () => {
     cy.url().should("include", "/products/");
     cy.get(".ProductDetails").should("exist");
 
-    cy.intercept("POST", "/api/cart/add", (req) => {
+    cy.intercept("POST", "/api/add", (req) => {
       req.reply({ status: 200, body: {} });
     }).as("addToCart");
 

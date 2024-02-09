@@ -22,7 +22,7 @@ describe("Products component", () => {
     cy.get(".Product").should("have.length.gt", 0);
 
     cy.get(".ProductImage").should("be.visible");
-    cy.intercept("POST", "/api/cart/add", (req) => {
+    cy.intercept("POST", "/api/add", (req) => {
       req.reply({ status: 200, body: {} });
     }).as("addToCart");
     cy.get(".AddToCartBtn").click();

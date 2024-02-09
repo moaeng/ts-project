@@ -10,7 +10,7 @@ Given("the user is on the product page", () => {
 });
 
 When("the user adds a product to the cart", () => {
-  cy.get(".Product").first().find(".CartBtn").click();
+  cy.get(".Product").first().find(".AddToCartBtn").click();
 });
 
 Then("the cart should display the updated item count", () => {
