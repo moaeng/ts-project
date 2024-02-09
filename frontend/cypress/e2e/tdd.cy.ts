@@ -8,31 +8,18 @@ describe("TDD E2E testing", () => {
       url: "http://localhost/api",
     }).as("getProducts");
 
-    cy.wait("@getProducts").its("status").should("eq", 200);
+    cy.get(".ImageContainer button.CartBtn").first().click();
 
-    cy.request({
-      method: "POST",
-      url: "http://localhost/api/cart/add",
-      body: {
-        cart_id: 1,
-        product_id: 1,
-        quantity: 2,
-      },
-    }).as("addToCart");
+    cy.get(".Navbar .CartBtn a").should("contain", 2);
 
-    cy.wait("@addToCart").its("status").should("eq", 201);
+    cy.reload();
 
-    cy.get(".Navbar .Cart").should("contain", "2");
-
-    cy.get(".Navbar .Cart").click();
+    cy.get(".Navbar .CartBtn a").click();
 
     cy.get(".Cart").should("exist");
 
-    cy.request({
-      method: "DELETE",
-      url: "http://localhost/api/cart/remove/1",
-    }).as("removeFromCart");
+    cy.get(".RemoveBtn").first().click();
 
-    cy.wait("@removeFromCart").its("status").should("eq", 204);
+    cy.get(".CartItem").should("have.length", 1);
   });
 });

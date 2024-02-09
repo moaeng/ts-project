@@ -126,7 +126,24 @@ app.get(
   }
 );
 
-// Remove from cart
+// Clear cart
+
+app.delete(
+  "/api/cart/clear",
+  async (_request: express.Request, response: express.Response) => {
+    try {
+      // Delete all cart items from the database
+      await client.query(`DELETE FROM cart_items`);
+
+      response.status(204).send(); // Respond with success (204 No Content) if successful
+    } catch (error) {
+      console.error("Error clearing cart items: ", error);
+      response.status(500).json({ error: "Internal server error" });
+    }
+  }
+);
+
+// Remove one item from cart
 
 app.delete(
   "/api/remove",
